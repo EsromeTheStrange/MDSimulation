@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "argon_defs.h"
-#include "particle_initialization.h"
+#include "md_argon_defs.h"
+#include "md_particle_initialization.h"
 
 #define SIMULATION_LENGTH 1
 #define NUM_PARTICLES (int)(PARTICLES_PER_UNIT_CELL_FCC * SIMULATION_LENGTH * SIMULATION_LENGTH * SIMULATION_LENGTH)

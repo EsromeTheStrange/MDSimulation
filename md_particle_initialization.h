@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "md_math.h"
+#include "md_output.h"
 
 struct Particle* get_initial_particles_fcc(int num_particles, int simulation_length, float cell_length){
     struct Particle* particles = malloc(sizeof(struct Particle) * num_particles);
@@ -38,6 +39,7 @@ void print_particle_position_tests(float cell_length){
         struct Particle particle = particles[i];
         printf("Particle %i: %f %f %f\n", i, particle.x, particle.y, particle.z);
     }
+    write_file("FCC_test", particles, 4);
     printf("\n\n\n");
 }
 
