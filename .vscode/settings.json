@@ -4,5 +4,6 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "md_particle_initialization.h": "c"
-    }
+    },
+    "C_Cpp.default.cStandard": "c17"
 }
