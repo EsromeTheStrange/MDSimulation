@@ -3,7 +3,9 @@
         "md_argon_defs.h": "c",
         "stdlib.h": "c",
         "stdio.h": "c",
-        "md_particle_initialization.h": "c"
+        "md_particle_initialization.h": "c",
+        "md_math.h": "c",
+        "md_output.h": "c"
     },
     "C_Cpp.default.cStandard": "c17"
 }

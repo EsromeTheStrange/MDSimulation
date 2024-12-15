@@ -14,14 +14,11 @@ int main(){
     print_particle_position_tests(CELL_LENGTH);
 
     //Actual Program
-    struct Particle* particles = get_initial_particles_fcc(NUM_PARTICLES, SIMULATION_LENGTH, CELL_LENGTH);
+    struct Particle* particles;
 
+    particles = get_initial_particles_fcc(NUM_PARTICLES, SIMULATION_LENGTH, CELL_LENGTH);
     set_initial_velocities(particles, NUM_PARTICLES);
 
     free(particles);
     return 0;
-}
-
-void output_file(int num_particles, double* cd, double simulation_width){
-
 }
