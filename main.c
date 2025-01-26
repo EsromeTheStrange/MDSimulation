@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "md_argon_defs.h"
 #include "md_particle_initialization.h"
+#include "md_force_calculations.h"
 
 #define SIMULATION_LENGTH 1
 #define NUM_PARTICLES (int)(PARTICLES_PER_UNIT_CELL_FCC * SIMULATION_LENGTH * SIMULATION_LENGTH * SIMULATION_LENGTH)
@@ -12,6 +13,7 @@ int main(){
     //Test Cases
     print_initial_variables();
     print_particle_position_tests(CELL_LENGTH);
+    print_force_tests();
 
     //Actual Program
     struct Particle* particles;

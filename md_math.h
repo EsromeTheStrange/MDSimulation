@@ -36,4 +36,29 @@ double calculate_dimensionless_temperature(struct Particle* particles, int num_p
     return total_squared_velocity / (3*(num_particles-1));
 }
 
+struct Vector3 signed_distance(struct Vector3 vec1, struct Vector3 vec2, double simulation_length){
+    struct Vector3 distance = {
+        vec1.x - vec2.x,
+        vec1.y - vec2.y,
+        vec1.z - vec2.z
+    };
+
+    if(distance.x > simulation_length / 2)
+        distance.x -= simulation_length;
+    if(distance.x < -simulation_length / 2)
+        distance.x += simulation_length;
+    
+    if(distance.y > simulation_length / 2)
+        distance.y -= simulation_length;
+    if(distance.y < -simulation_length / 2)
+        distance.y += simulation_length;
+    
+    if(distance.z > simulation_length / 2)
+        distance.z -= simulation_length;
+    if(distance.z < -simulation_length / 2)
+        distance.z += simulation_length;
+    
+    return distance;
+}
+
 #endif
