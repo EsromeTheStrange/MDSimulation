@@ -26,4 +26,29 @@ void write_file(char* file_name, struct Particle* particles, int num_particles){
     fclose(file);
 }
 
+FILE* start_file(char* file_name){
+    mkdir("output/", 0777);
+    char output_path[64] = "output/";
+    strcat(output_path, file_name);
+    strcat(output_path, ".xyz");
+    
+    return fopen(output_path, "w+");
+}
+
+void append_to_file(FILE* file, struct Particle* particles, int num_particles, int time_step, int max_time_steps){
+    fprintf(file, "%i\n", num_particles);
+    fprintf(file, "Time Step %i/%i.\n", time_step, max_time_steps);
+
+    for (int i=0; i<num_particles; i++)
+        fprintf(file, "Ar %.6f %.6f %.6f\n", particles[i].position.x, particles[i].position.y, particles[i].position.z);
+    fflush(file);
+}
+
+void finish_file(FILE* file){
+    log_important("Results saved to file: ");
+    log_important("output/results.xyz"); //TODO fix this
+    printf("\n");
+    fclose(file);
+}
+
 #endif

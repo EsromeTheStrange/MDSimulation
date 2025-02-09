@@ -1,3 +1,4 @@
+#include "md_logger.h"
 #include "md_math.h"
 
 #define UNIT_LENGTH     3.4e-10
@@ -12,13 +13,13 @@
 #define CELL_LENGTH     cbrt(PARTICLES_PER_UNIT_CELL_FCC / DENSITY)
 
 void print_initial_variables(){
-    printf("Base Units\n");
+    log_header("Base Units\n");
     printf("Unit Length: %.5e (m)\n", UNIT_LENGTH);
     printf("Unit Mass:   %.5e (kg)\n", UNIT_MASS);
     printf("Unit Energy: %.5e (J)\n", UNIT_ENERGY);
     printf("Unit Time:   %.5e (s)\n", UNIT_TIME);
 
-    printf("\nDimensionless Values\n");
+    log_header("\nDimensionless Values\n");
     printf("Density:            %f\n", DENSITY);
     printf("Target Temperature: %f\n", TARGET_TEMP);
     printf("Time Step:          %f\n", TIME_STEP);

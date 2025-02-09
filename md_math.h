@@ -36,6 +36,17 @@ double calculate_dimensionless_temperature(struct Particle* particles, int num_p
     return total_squared_velocity / (3*(num_particles-1));
 }
 
+void correct_temperature(struct Particle* particles, int num_particles, double target_temp){
+    double temperature = calculate_dimensionless_temperature(particles, num_particles);
+    double temp_scale = sqrt(target_temp / temperature);
+    
+    for(int i=0; i<num_particles; i++){
+        particles[i].velocity.x *= temp_scale;
+        particles[i].velocity.y *= temp_scale;
+        particles[i].velocity.z *= temp_scale;
+    }
+}
+
 struct Vector3 signed_distance(struct Vector3 vec1, struct Vector3 vec2, double simulation_length){
     struct Vector3 distance = {
         vec1.x - vec2.x,
@@ -59,6 +70,25 @@ struct Vector3 signed_distance(struct Vector3 vec1, struct Vector3 vec2, double 
         distance.z += simulation_length;
     
     return distance;
+}
+
+void enforce_boundary_condition(struct Particle* particles, int num_particles, double simulation_length){
+    for(int i=0; i<num_particles; i++){
+        while(particles[i].position.x < 0)
+            particles[i].position.x += simulation_length;
+        while(particles[i].position.x > simulation_length)
+            particles[i].position.x -= simulation_length;
+        
+        while(particles[i].position.y < 0)
+            particles[i].position.y += simulation_length;
+        while(particles[i].position.y > simulation_length)
+            particles[i].position.y -= simulation_length;
+
+        while(particles[i].position.y < 0)
+            particles[i].position.y += simulation_length;
+        while(particles[i].position.y > simulation_length)
+            particles[i].position.y -= simulation_length;
+    }
 }
 
 #endif

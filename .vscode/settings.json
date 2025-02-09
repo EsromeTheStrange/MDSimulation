@@ -5,7 +5,9 @@
         "stdio.h": "c",
         "md_particle_initialization.h": "c",
         "md_math.h": "c",
-        "md_output.h": "c"
+        "md_output.h": "c",
+        "md_logger.h": "c",
+        "md_force_calculations.h": "c"
     },
     "C_Cpp.default.cStandard": "c17"
 }

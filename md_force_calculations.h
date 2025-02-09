@@ -7,8 +7,7 @@
 
 #define MAX_FORCE_SQUARED_DISTANCE 9
 
-struct Vector3* calculate_forces(struct Particle* particles, int num_particles, double simulation_length){
-    struct Vector3* forces = calloc(num_particles, sizeof(struct Vector3));
+void update_forces(struct Vector3* forces, struct Particle* particles, int num_particles, double simulation_length){
     for(int i=0; i<num_particles-1; i++){
         for(int j=i+1; j<num_particles; j++){
             struct Vector3 distance = signed_distance(particles[i].position, particles[j].position, simulation_length);
@@ -32,7 +31,28 @@ struct Vector3* calculate_forces(struct Particle* particles, int num_particles, 
             forces[j].z -= new_force.z;
         }
     }
+}
+
+struct Vector3* calculate_forces(struct Particle* particles, int num_particles, double simulation_length){
+    struct Vector3* forces = calloc(num_particles, sizeof(struct Vector3));
+    update_forces(forces, particles, num_particles, simulation_length);
     return forces;
+}
+
+void update_velocities(struct Particle* particles, struct Vector3* forces, int num_particles, double delta_time){
+    for(int i=0; i<num_particles; i++){
+        particles[i].velocity.x += forces[i].x * delta_time;
+        particles[i].velocity.y += forces[i].y * delta_time;
+        particles[i].velocity.z += forces[i].z * delta_time;
+    }
+}
+
+void move_particles(struct Particle* particles, int num_particles, double delta_time){
+    for(int i=0; i<num_particles; i++){
+        particles[i].position.x += particles[i].velocity.x * delta_time;
+        particles[i].position.y += particles[i].velocity.y * delta_time;
+        particles[i].position.z += particles[i].velocity.z * delta_time;
+    }
 }
 
 void test_forces(struct Particle* particles, int num_particles, double simulation_length){

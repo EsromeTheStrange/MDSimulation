@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+#include "md_logger.h"
 #include "md_math.h"
 #include "md_output.h"
 
@@ -66,7 +68,9 @@ void set_initial_velocities(struct Particle* particles, int num_particles){
     double x_correction = total_velocity.x / num_particles;
     double y_correction = total_velocity.y / num_particles;
     double z_correction = total_velocity.z / num_particles;
-    printf("Initial Total Velocity:   (%.4e, %.4e, %.4e)\n", total_velocity.x, total_velocity.y, total_velocity.z);
+    
+    log_header("Calculating Initial Velocity...\n");
+    printf("Initial Total Velocity:           (%.4e, %.4e, %.4e)\n", total_velocity.x, total_velocity.y, total_velocity.z);
 
     for (int i=0; i<num_particles; i++){
         particles[i].velocity.x -= x_correction;
@@ -75,19 +79,12 @@ void set_initial_velocities(struct Particle* particles, int num_particles){
     }
 
     total_velocity = calculate_total_velocity(particles, num_particles);
-    printf("Corrected Total Velocity: (% .4e, % .4e, % .4e)\n", total_velocity.x, total_velocity.y, total_velocity.z);
+    printf("Total Velocity Corrected to Zero: (% .4e, % .4e, % .4e)\n", total_velocity.x, total_velocity.y, total_velocity.z);
 
     //Scale the velocity to match the desired temperature.
     double temperature = calculate_dimensionless_temperature(particles, num_particles);
-    double temp_scale = sqrt(TARGET_TEMP / temperature);
     printf("\nInitial Temperature:   %.6f\n", temperature);
-
-    for(int i=0; i<num_particles; i++){
-        particles[i].velocity.x *= temp_scale;
-        particles[i].velocity.y *= temp_scale;
-        particles[i].velocity.z *= temp_scale;
-    }
-    
+    correct_temperature(particles, num_particles, TARGET_TEMP);
     temperature = calculate_dimensionless_temperature(particles, num_particles);
     printf("Target Temperature:    %.6f\n", TARGET_TEMP);
     printf("Corrected Temperature: %.6f\n", temperature);
