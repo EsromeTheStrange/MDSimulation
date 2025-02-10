@@ -84,10 +84,10 @@ void enforce_boundary_condition(struct Particle* particles, int num_particles, d
         while(particles[i].position.y > simulation_length)
             particles[i].position.y -= simulation_length;
 
-        while(particles[i].position.y < 0)
-            particles[i].position.y += simulation_length;
-        while(particles[i].position.y > simulation_length)
-            particles[i].position.y -= simulation_length;
+        while(particles[i].position.z < 0)
+            particles[i].position.z += simulation_length;
+        while(particles[i].position.z > simulation_length)
+            particles[i].position.z -= simulation_length;
     }
 }
 

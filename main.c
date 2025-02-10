@@ -6,7 +6,7 @@
 #include "md_particle_initialization.h"
 #include "md_force_calculations.h"
 
-#define NUM_CELLS_PER_AXIS 2
+#define NUM_CELLS_PER_AXIS 4
 #define NUM_STEPS 1000
 #define NUM_PARTICLES (int)(PARTICLES_PER_UNIT_CELL_FCC * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS)
 #define TEMPERATURE_CORRECTION_FREQUENCY 50
@@ -41,7 +41,6 @@ int main(){
 
         if(i%TEMPERATURE_CORRECTION_FREQUENCY == 0)
             correct_temperature(particles, NUM_PARTICLES, TARGET_TEMP);
-        printf(".");
         
         append_to_file(output_file, particles, NUM_PARTICLES, i+1, NUM_STEPS);
     }
