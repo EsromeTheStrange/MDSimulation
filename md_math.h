@@ -72,22 +72,19 @@ struct Vector3 signed_distance(struct Vector3 vec1, struct Vector3 vec2, double 
     return distance;
 }
 
-void enforce_boundary_condition(struct Particle* particles, int num_particles, double simulation_length){
+void enforce_boundary_condition(struct Particle* particles, int num_particles, double simulation_length, int current_step){
     for(int i=0; i<num_particles; i++){
-        while(particles[i].position.x < 0)
+        particles[i].position.x = fmod(particles[i].position.x, simulation_length);
+        if(particles[i].position.x < 0)
             particles[i].position.x += simulation_length;
-        while(particles[i].position.x > simulation_length)
-            particles[i].position.x -= simulation_length;
         
-        while(particles[i].position.y < 0)
+        particles[i].position.y = fmod(particles[i].position.y, simulation_length);
+        if(particles[i].position.y < 0)
             particles[i].position.y += simulation_length;
-        while(particles[i].position.y > simulation_length)
-            particles[i].position.y -= simulation_length;
 
-        while(particles[i].position.z < 0)
+        particles[i].position.z = fmod(particles[i].position.z, simulation_length);
+        if(particles[i].position.z < 0)
             particles[i].position.z += simulation_length;
-        while(particles[i].position.z > simulation_length)
-            particles[i].position.z -= simulation_length;
     }
 }
 

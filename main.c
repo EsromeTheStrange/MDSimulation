@@ -7,7 +7,7 @@
 #include "md_force_calculations.h"
 
 #define NUM_CELLS_PER_AXIS 4
-#define NUM_STEPS 1000
+#define NUM_STEPS 10000
 #define NUM_PARTICLES (int)(PARTICLES_PER_UNIT_CELL_FCC * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS)
 #define TEMPERATURE_CORRECTION_FREQUENCY 50
 
@@ -35,11 +35,11 @@ int main(){
 
         update_velocities(particles, forces, NUM_PARTICLES, TIME_STEP / 2.0);
         move_particles(particles, NUM_PARTICLES, TIME_STEP);
-        enforce_boundary_condition(particles, NUM_PARTICLES, NUM_CELLS_PER_AXIS * CELL_LENGTH);
+        enforce_boundary_condition(particles, NUM_PARTICLES, NUM_CELLS_PER_AXIS * CELL_LENGTH, i);
         update_forces(forces, particles, NUM_PARTICLES, NUM_CELLS_PER_AXIS * CELL_LENGTH);
         update_velocities(particles, forces, NUM_PARTICLES, TIME_STEP / 2.0);
 
-        if(i%TEMPERATURE_CORRECTION_FREQUENCY == 0)
+        //if(i%TEMPERATURE_CORRECTION_FREQUENCY == 0)
             correct_temperature(particles, NUM_PARTICLES, TARGET_TEMP);
         
         append_to_file(output_file, particles, NUM_PARTICLES, i+1, NUM_STEPS);
