@@ -1,18 +1,22 @@
+#ifndef MD_ARGON_DEFS
+#define MD_ARGON_DEFS
+
 #include "md_logger.h"
 #include "md_math.h"
 
-#define UNIT_LENGTH     3.4e-10
-#define UNIT_MASS       (39.948/AVOGADROS*1e-3)
-#define UNIT_ENERGY     (120*BOLTZMANN)
-#define UNIT_TIME       (UNIT_LENGTH*sqrt(UNIT_MASS/UNIT_ENERGY))
+#define UNIT_LENGTH 3.4e-10
+#define UNIT_MASS (39.948 / AVOGADROS * 1e-3)
+#define UNIT_ENERGY (120 * BOLTZMANN)
+#define UNIT_TIME (UNIT_LENGTH * sqrt(UNIT_MASS / UNIT_ENERGY))
 
-#define DENSITY         (1380 * UNIT_LENGTH * UNIT_LENGTH * UNIT_LENGTH / UNIT_MASS)
-#define TARGET_TEMP     (86.64 / UNIT_ENERGY * BOLTZMANN)
-#define TIME_STEP       (2.0e-15 / UNIT_TIME)
+#define DENSITY (1380 * UNIT_LENGTH * UNIT_LENGTH * UNIT_LENGTH / UNIT_MASS)
+#define TARGET_TEMP (86.64 / UNIT_ENERGY * BOLTZMANN)
+#define TIME_STEP (2.0e-15 / UNIT_TIME)
 
-#define CELL_LENGTH     cbrt(PARTICLES_PER_UNIT_CELL_FCC / DENSITY)
+#define CELL_LENGTH cbrt(PARTICLES_PER_UNIT_CELL_FCC / DENSITY)
 
-void print_initial_variables(){
+void print_initial_variables()
+{
     log_header("Base Units\n");
     printf("Unit Length: %.5e (m)\n", UNIT_LENGTH);
     printf("Unit Mass:   %.5e (kg)\n", UNIT_MASS);
@@ -28,3 +32,4 @@ void print_initial_variables(){
 
     printf("\n\n\n");
 }
+#endif
