@@ -1,5 +1,6 @@
 output/
 .vscode/
+.idea/
 
 # Prerequisites
 *.d

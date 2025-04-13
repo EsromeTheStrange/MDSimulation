@@ -10,7 +10,7 @@
 #define NUM_CELLS_PER_AXIS 4
 #define NUM_STEPS 2000
 #define NUM_PARTICLES (int)(PARTICLES_PER_UNIT_CELL_FCC * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS * NUM_CELLS_PER_AXIS)
-#define RADIAL_DISTRIBUTION_FREQUENCY 50
+#define RADIAL_DISTRIBUTION_STEP 1500
 
 int main()
 {
@@ -29,7 +29,7 @@ int main()
     set_initial_velocities(particles, NUM_PARTICLES);
 
     struct Vector3 *forces = calculate_forces(particles, NUM_PARTICLES, NUM_CELLS_PER_AXIS * CELL_LENGTH);
-    FILE *output_file = start_file("result");
+    FILE *output_file = start_file("result.xyz");
 
     initialize_radial_distribution_calculations();
 
@@ -47,7 +47,7 @@ int main()
         update_velocities(particles, forces, NUM_PARTICLES, TIME_STEP / 2.0);
 
         correct_temperature(particles, NUM_PARTICLES, TARGET_TEMP);
-        if (i % RADIAL_DISTRIBUTION_FREQUENCY == 0)
+        if (i == RADIAL_DISTRIBUTION_STEP)
             calculate_radial_distribution(particles, NUM_PARTICLES, NUM_CELLS_PER_AXIS * CELL_LENGTH);
 
         append_to_file(output_file, particles, NUM_PARTICLES, i + 1, NUM_STEPS);

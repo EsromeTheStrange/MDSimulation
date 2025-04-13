@@ -5,6 +5,7 @@
 #include "md_math.h"
 
 #define UNIT_LENGTH 3.4e-10
+#define UNIT_LENGTH_ANGSTROMS UNIT_LENGTH * 1e10
 #define UNIT_MASS (39.948 / AVOGADROS * 1e-3)
 #define UNIT_ENERGY (120 * BOLTZMANN)
 #define UNIT_TIME (UNIT_LENGTH * sqrt(UNIT_MASS / UNIT_ENERGY))

@@ -10,7 +10,7 @@ FILE *radial_distribution_output;
 
 void initialize_radial_distribution_calculations()
 {
-    radial_distribution_output = start_file("radial_distribution");
+    radial_distribution_output = start_file("radial_distribution.data");
 }
 
 void calculate_radial_distribution(struct Particle *particles, int num_particles, double simulation_length)
@@ -31,16 +31,15 @@ void calculate_radial_distribution(struct Particle *particles, int num_particles
         }
     }
 
-    double total_density = 0;
+    fprintf(radial_distribution_output, "Time:%i\n", 0);
     for (int i = 0; i < num_spheres; i++)
     {
-        double radius = (i + 1) * RADIAL_DISTRIBUTION_RADIUS;
-        total_density += particle_distribution[i] / (4 * PI * radius * radius * RADIAL_DISTRIBUTION_RADIUS);
+        double radius = (i + 1) * RADIAL_DISTRIBUTION_RADIUS * UNIT_LENGTH_ANGSTROMS;
+        double volume = 4 * PI * radius * radius * RADIAL_DISTRIBUTION_RADIUS;
+        double relative_density = particle_distribution[i] / volume / DENSITY;
+        fprintf(radial_distribution_output, "%.5e %.5e\n", radius, relative_density);
     }
-    total_density /= num_spheres;
-    float radial_distribution = total_density / DENSITY;
 
-    fprintf(radial_distribution_output, "%.5e %.5e\n", total_density, radial_distribution);
     free(particle_distribution);
 }
 
